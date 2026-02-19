@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using System.Text.Json;
 
 class HUEAPI
@@ -39,7 +40,7 @@ class HUEAPI
         client.Dispose();
     }
 
-    public async Task<HttpResponseMessage> PerformHttpAction(string apiMethod, string apiURL, Dictionary<string, string>? headers = null, JsonDocument? body = null)
+    private async Task<HttpResponseMessage> PerformHttpAction(string apiMethod, string apiURL, Dictionary<string, string>? headers = null, JsonDocument? body = null)
     {
         //Can't continue if we don't have an api method or url to send request to
         if (String.IsNullOrEmpty(apiMethod) || String.IsNullOrEmpty(apiURL)) return null;
@@ -70,25 +71,59 @@ class HUEAPI
         return response;
     }
 
-    public static async void Main(String[] args)
+    
+    public async Task<JsonNode> GetHUEDevice (string deviceName)
     {
-        HUEAPI api = new HUEAPI();
-        HttpResponseMessage testResponse = await api.PerformHttpAction("GET", "https://discovery.meethue.com");
+        HttpResponseMessage testResponse = await PerformHttpAction("GET", "https://discovery.meethue.com");
         string responseString = await testResponse.Content.ReadAsStringAsync();
         Console.WriteLine(responseString);
-        JsonDocument document = JsonDocument.Parse(responseString);
-        string bridgeIPAddress = document.RootElement[0].GetProperty("internalipaddress").GetString();
+        //JsonDocument document = JsonDocument.Parse(responseString);
+        //string bridgeIPAddress = document.RootElement[0].GetProperty("internalipaddress").GetString();
+        JsonNode document = JsonNode.Parse(responseString);
+        string bridgeIPAddress = document[0]["internalipaddress"].GetValue<string>();
         Console.WriteLine(bridgeIPAddress);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("hue-application-key", "rQPBBpxlozXfBQ7B09ij5bQgkcg8R6-M5LwRc3Ej");
         headers.Add("Accept", "application/json");
-        HttpResponseMessage deviceQuery = await api.PerformHttpAction("GET", $"https://{bridgeIPAddress}/clip/v2/resource/device", headers);
+        HttpResponseMessage deviceQuery = await PerformHttpAction("GET", $"https://{bridgeIPAddress}/clip/v2/resource/device", headers);
         string deviceResponseString = await deviceQuery.Content.ReadAsStringAsync();
-        Console.WriteLine(deviceResponseString);
+        JsonNode responseDocument = JsonNode.Parse(deviceResponseString);
+        JsonArray devices = responseDocument["data"].AsArray();
+        for (int i = 0; i < devices.Count; i++)
+        {
+            JsonNode currentDevice = devices[i];
+            if (currentDevice["metadata"]["name"].GetValue<string>() == deviceName)
+            {
+                return currentDevice;
+            }
+        }
+        return null;
+    }
+
+    public string GetRIDFromRType(JsonNode device, string rType)
+    {
+        JsonArray services = device["services"].AsArray();
+        for (int i = 0; i < services.Count; i++)
+        {
+            JsonNode currentService = services[i];
+            if (currentService["rtype"].GetValue<string>() == rType)
+            {
+                return currentService["rid"].GetValue<string>();
+            }
+        }
+        return null;
+    }
+
+    public static async void Main(String[] args)
+    {
+        HUEAPI api = new HUEAPI();
+        JsonNode device = await api.GetHUEDevice("TV Stand");
+        string rid = api.GetRIDFromRType(device, "light");
+        Console.WriteLine(rid);
 
         //Dispose
-        document.Dispose();
+        //document.Dispose();
 
     }
 }

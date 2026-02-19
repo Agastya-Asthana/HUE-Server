@@ -8,19 +8,19 @@
     "net10.0": []
   },
   "packageFolders": {
-    "/Users/agastyaasthana/.nuget/packages/": {}
+    "C:\\Users\\Agastya\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/agastyaasthana/Documents/Projects/HUE-Server/HUE-Server/HUE-Server.csproj",
+      "projectUniqueName": "C:\\Users\\Agastya\\Documents\\Projects\\HUE-Server\\HUE-Server.csproj",
       "projectName": "HUE-Server",
-      "projectPath": "/Users/agastyaasthana/Documents/Projects/HUE-Server/HUE-Server/HUE-Server.csproj",
-      "packagesPath": "/Users/agastyaasthana/.nuget/packages/",
-      "outputPath": "/Users/agastyaasthana/Documents/Projects/HUE-Server/HUE-Server/obj/",
+      "projectPath": "C:\\Users\\Agastya\\Documents\\Projects\\HUE-Server\\HUE-Server.csproj",
+      "packagesPath": "C:\\Users\\Agastya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Agastya\\Documents\\Projects\\HUE-Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/agastyaasthana/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Agastya\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -68,7 +68,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
