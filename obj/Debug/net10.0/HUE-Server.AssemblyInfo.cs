@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HUE-Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2a0d5d926da256017d3cd433ccdfc2a9ab3c0cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f0a20f53deac2dabaa6cabeb56294185af3c5a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("HUE-Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HUE-Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
